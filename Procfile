@@ -1,0 +1,1 @@
+web: gunicorn ordering_app.wsgi

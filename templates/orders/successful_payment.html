@@ -1,0 +1,6 @@
+{% extends 'orders/base.html' %}
+{% block content %}
+  <h2>Payment Successful</h2>
+  <p>Your payment for Order#{{ order_id }} was successful. Thank you for your order!</p>
+  <a href="{% url 'product_list' %}" class="btn btn-primary">Make Another Order</a>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'orders/base.html' %}
+{% block content %}
+  <h2>Product List</h2>
+  <table class="product-list">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th colspan="4">Description</th>
+        <th>Price</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for product in products %}
+        <tr>
+          <td>{{ product.name }}</td>
+          <td class="description" colspan="4">{{ product.description }}</td>
+          <td>${{ product.price }}</td>
+          <td>
+            {% if product.quantity %}
+              <form method="POST" action="{% url 'add_or_update_order_item' product.id %}">
+                {% csrf_token %}
+                <input type="number" name="quantity" min="0" value="{{ product.quantity }}" required>
+                <button type="submit">Update</button>
+              </form>
+            {% else %}
+              <form method="POST" action="{% url 'add_or_update_order_item' product.id %}">
+                {% csrf_token %}
+                <input type="number" name="quantity" min="1" value="0" required>
+                <button type="submit">Add to Order</button>
+              </form>
+            {% endif %}
+          </td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="4">No products available.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% if order %}
+    <h4>Order Summary</h4>
+    <p>Total: ${{ order.total|floatformat:2 }}</p>
+    {% if order.total %}
+      <a href="{% url 'order_details' order.id %}">View order details</a>
+    {% endif %}
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,16 @@
+.product-list .description {
+  max-width: 300px;
+  overflow-wrap: break-word;
+}
+
+.product-list th,
+.product-list td {
+  padding: 10px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.product-list th {
+  font-weight: bold;
+  vertical-align: middle;
+}

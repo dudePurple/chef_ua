@@ -1,0 +1,30 @@
+{% extends 'orders/base.html' %}
+
+{% block content %}
+  <h2>Order Details</h2>
+  <h3>Order #: {{ order.id }}</h3>
+  <p>Status: {{ order.status }}</p>
+
+  <table class="product-list">
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in order.orderitem_set.all %}
+        <tr>
+          <td>{{ item.product.name }}</td>
+          <td>{{ item.quantity }}</td>
+          <td>${{ item.product.price }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <p>Total: ${{ order.total|floatformat:2 }}</p>
+  <a href="{% url 'product_list' %}">Change order</a>
+  <a href="{% url 'process_payment' %}">Pay Now</a>
+{% endblock %}
